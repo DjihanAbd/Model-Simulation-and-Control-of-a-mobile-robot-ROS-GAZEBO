@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<robot>
+
+
+<gazebo reference="body_link">
+<mul1>0.2</mul1>
+<mul2>0.2</mul2>
+<material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference="wheel1_link">
+<mul1>0.2</mul1>
+<mul2>0.2</mul2>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="wheel2_link">
+<mul1>0.2</mul1>
+<mul2>0.2</mul2>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="wheel3_link">
+<mul1>0.2</mul1>
+<mul2>0.2</mul2>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="wheel4_link">
+<mul1>0.2</mul1>
+<mul2>0.2</mul2>
+<material>Gazebo/Yellow</material>
+</gazebo>
+
+<!-- Controller for 4-wheeled Robot -->
+<gazebo>
+<plugin name='skid_steer_drive' filename='libgazebo_ros_diff_drive.so'>
+	
+    <!-- Control update rate in hz --> 
+    <updateRate>100.0<updateRate/>
+    
+    <!-- leave empty -->
+    <robotNamespace> </robotNnamespace>
+    
+
+    
+
+    <!-- kinematics -->
+    <leftFrontJoint>wheel4_joint</leftFrontJointjoint>
+    <rightFrontJoint>wheel3_joint</rightFrontjoint>
+
+    <leftRearJoint>wheel2_joint</leftRearJoint>
+    <rightRearJoint>wheel1_joint</rightRearJoint>
+
+    <wheel_separation>${body_link_y_dim+wheel_link_length}</wheel_separation>
+
+    <wheel_diameter>${2*wheel_link_radius}</wheel_diameter>
+
+    <!-- limits -->
+    <max_wheel_torque>1000</max_wheel_torque>
+
+
+    <!-- topics to receive geometry msgs commands, default to cmd_vel -->
+    <commandTopic>cmd_vel</commandTopic>
+    
+    <!-- topic to publish nav_msg/odometry message -->
+    <odometryTopic>odom</odometryTopic>
+    <robotBaseFrame>dummy</robotBaseFrame>
+    
+    <publishwheelTF>true</publishwheelTF>
+    <publishOdom>true</publishOdom>
+    <publishWheelJointState>true</publishWheelJointState>
+    
+    <!-- this part is required by gazebo -->
+    <covariance_x>0.0001</covariance_x>
+    <covariance_y>0.0001</covariance_y>
+    <covariance_yaw>0.01</covariance_yaw>
+
+
+    
+
+  </plugin>
+ </gazebo>
+</robot>
